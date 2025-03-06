@@ -25,10 +25,7 @@ public class InputManager : MonoBehaviour
     private void Start()
     {
         _space = InputSystem.actions.FindAction("Space");
-    }
 
-    private void Update()
-    {
-        if (_space.triggered) OnSpace.Invoke();
+        _space.performed += _ => OnSpace.Invoke();
     }
 }
