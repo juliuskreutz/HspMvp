@@ -7,10 +7,7 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; }
 
-    // Subscribable action
-    public Action OnSpace;
-
-    private InputAction _space;
+    public InputAction SpaceAction  { get; private set; }
 
     private void Awake()
     {
@@ -19,13 +16,12 @@ public class InputManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
-    }
-
-    private void Start()
-    {
-        _space = InputSystem.actions.FindAction("Space");
-
-        _space.performed += _ => OnSpace.Invoke();
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
+        SpaceAction = InputSystem.actions.FindAction("Space");
     }
 }

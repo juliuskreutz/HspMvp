@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace Board
@@ -19,13 +20,13 @@ namespace Board
         private void OnEnable()
         {
             // Bind space bar action
-            InputManager.Instance.OnSpace += player.StopRoll;
+            InputManager.Instance.SpaceAction.performed += OnSpace;
         }
 
         private void OnDisable()
         {
             // Unbind space bar action
-            InputManager.Instance.OnSpace -= player.StopRoll;
+            InputManager.Instance.SpaceAction.performed += OnSpace;
         }
 
         private void Awake()
@@ -56,6 +57,11 @@ namespace Board
                     Walk(w);
                     break;
             }
+        }
+        
+        private void OnSpace(InputAction.CallbackContext _)
+        {
+            player.StopRoll();
         }
 
         /// <summary>

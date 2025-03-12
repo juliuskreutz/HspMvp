@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace MiniGame
@@ -16,13 +17,13 @@ namespace MiniGame
         private void OnEnable()
         {
             // Bind space bar action
-            InputManager.Instance.OnSpace += OnSpace;
+            InputManager.Instance.SpaceAction.performed += OnSpace;
         }
 
         private void OnDisable()
         {
             // Unbind space bar action
-            InputManager.Instance.OnSpace -= OnSpace;
+            InputManager.Instance.SpaceAction.performed -= OnSpace;
         }
 
         private void Update()
@@ -34,7 +35,7 @@ namespace MiniGame
             counterText.text = _counter <= 3 ? Math.Round(_counter, 1).ToString("0.0") : "";
         }
 
-        private void OnSpace()
+        private void OnSpace(InputAction.CallbackContext _)
         {
             switch (_running)
             {
